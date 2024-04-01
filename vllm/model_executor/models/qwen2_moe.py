@@ -135,8 +135,8 @@ class Qwen2MoeSparseMoeBlock(nn.Module):
         w1 = []
         w2 = []
         for expert in self.experts:
-            w1.append(expert.gate_up_proj.weight)
-            w2.append(expert.down_proj.weight)
+            w1.append(expert.gate_up_proj.linear_weights)
+            w2.append(expert.down_proj.linear_weights)
         self.w1 = torch._utils._flatten_dense_tensors(w1)
         w1s = torch._utils._unflatten_dense_tensors(self.w1, w1)
         for data, param in zip(w1s, w1):
